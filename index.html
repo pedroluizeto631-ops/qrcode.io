@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de QR Code</title>
+
+<style>
+    body{
+        margin:0;
+        font-family: Arial;
+        background:#000;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        min-height:100vh;
+        text-align:center;
+    }
+
+    h1{
+        letter-spacing:2px;
+        animation: aparecer 1s ease-in-out;
+    }
+
+    @keyframes aparecer{
+        from{opacity:0; transform:translateY(-20px);}
+        to{opacity:1; transform:translateY(0);}
+    }
+
+    .caixa{
+        margin-top:20px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:300px;
+        max-width:90%;
+    }
+
+    input{
+        padding:12px;
+        border-radius:5px;
+        border:none;
+        outline:none;
+        text-align:center;
+    }
+
+    button{
+        padding:12px;
+        border-radius:5px;
+        border:none;
+        background:white;
+        color:black;
+        font-weight:bold;
+        cursor:pointer;
+        position:relative;
+        overflow:hidden;
+    }
+
+    button::after{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        width:0%;
+        height:100%;
+        background:#222;
+        transition:0.3s;
+        background-image:url("https://icon-library.com/images/qr-code-icon/qr-code-icon-17.jpg");
+        background-size:25px;
+        background-repeat:no-repeat;
+        background-position:center;
+        opacity:0.5;
+    }
+
+    button:hover::after{
+        width:100%;
+    }
+
+    #qrBox{
+        margin-top:20px;
+        padding:15px;
+        border-radius:10px;
+        display:none;
+        background:#111;
+    }
+
+    footer{
+        position:fixed;
+        bottom:10px;
+        color:#aaa;
+        font-size:12px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Gerador de QR Code</h1>
+
+<div class="caixa">
+    <input type="text" id="link" placeholder="Digite o link aqui...">
+    <button onclick="gerarQR()">Gerar QR Code</button>
+</div>
+
+<div id="qrBox">
+    <img id="qrImg">
+</div>
+
+<footer> Criado por Luizeto </footer>
+
+<script>
+function gerarQR(){
+    let link = document.getElementById("link").value;
+
+    if(link === ""){
+        alert("Digite um link primeiro!");
+        return;
+    }
+
+    let img = document.getElementById("qrImg");
+    img.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(link);
+
+    document.getElementById("qrBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
